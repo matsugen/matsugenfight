@@ -3,7 +3,7 @@
 
 Base::~Base(){}
 CharaState::~CharaState(){}
-/*InputData CharaState::InputToButton(int *Key){
+InputData CharaState::InputToButton(int *Key){
 	InputData Return_Data=0;
 	if(Key[KEY_INPUT_Q]>=1&&Key[KEY_INPUT_Q]<3){
 		Return_Data|=L_P;
@@ -21,7 +21,7 @@ CharaState::~CharaState(){}
 		Return_Data=NO_BUTTON;
 	}
 	return Return_Data;
-}*/
+}
 
 InputData CharaState::InputToArrow(int *Key){
 	InputData Return_Data=0;
