@@ -19,5 +19,6 @@ function main()
 	P1:receive(Up,Down,Push);
 	P1:state();
 	P1:Draw();
+	Dx.DrawCollision(255,0,0,P1.x,P1.y,P1.x+72,P1.y+192);
 
 end

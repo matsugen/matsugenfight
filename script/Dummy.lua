@@ -10,7 +10,7 @@ Dx.InitImage();
 class("Dummy",vars_overwrite){
 	LP=ImageLoad("0-1.png",72,192,5),
 	walk=ImageLoad("0-0.png",72,192,5),
-	speed=1
+	speed=10
 }
 function Dummy:ctor(...)
 	self.state=self:wait();
