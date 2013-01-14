@@ -1,5 +1,5 @@
 function create_class(classname,super_class,class_vars,on_class_reload)
-	assert(type(class_vars)~="nil","nil");
+	assert(type(class_vars)=="table","not table")
 	-- グローバルにすでにクラスが使われていればそれを使う
 	local class=rawget(_G,classname);
 	local is_reload=false;

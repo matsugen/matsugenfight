@@ -10,7 +10,7 @@ Dx.InitImage();
 class("Dummy",vars_overwrite){
 	LP=ImageLoad("0-1.png",72,192,5),
 	walk=ImageLoad("0-0.png",72,192,5),
-	speed=10
+	speed=7
 }
 function Dummy:ctor(...)
 	self.state=self:wait();
@@ -81,13 +81,11 @@ function Dummy:forward()
 			self.state=self:LightPunch();
 		elseif AND(self.Push,KEY_RIGHT)>0 then
 			if self.dir==DIRECTION_RIGHT then
-				self.state=self:forward();
 			else
 				self.state=self:back();
 			end
 		elseif AND(self.Push,KEY_LEFT)>0 then
 			if self.dir==DIRECTION_LEFT then
-				self.state=self:forward();
 			else
 				self.state=self:back();
 			end
@@ -122,14 +120,12 @@ function Dummy:back()
 			if self.dir==DIRECTION_RIGHT then
 				self.state=self:forward();
 			else
-				self.state=self:back();
 			end
 		elseif AND(self.Push,KEY_LEFT)>0 then
 			if self.dir==DIRECTION_LEFT then
 				self.state=self:forward();
 			else
 			end
-				self.state=self:back();
 		else
 			self.state=self:wait();
 		end

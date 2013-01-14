@@ -53,3 +53,10 @@ lua‚Ì˜A‘z”z—ñ‹@”\‚ð—p‚¢‚ÄA“Ç‚Ýž‚ñ‚¾ƒtƒ@ƒCƒ‹‚ÌŠg’£Žq‚ð”`‚¢‚½•”•ª‚ð‹ZŽQÆ‚ÌƒL[‚
 ‚±‚¤‚·‚é‚±‚Æ‚ÅA‚¨‚»‚ç‚­ŠÖ”‚ð‘½‚­Žg‚í‚¸A˜A‘z”z—ñ‚ð‘–¸‚·‚é‚¾‚¯‚Å‹Z‚ðŽÀs‚Å‚«‚é‚ÆŽv‚í‚ê‚éB
 “Ç‚Ýž‚ñ‚¾ƒtƒ@ƒCƒ‹‚ÌŠg’£Žq‚ðœ‚¢‚½•”•ª‚ð˜A‘z”z—ñ‚ÌƒL[‚Æ‚·‚é‚É‚Í‚Ç‚¤‚·‚é‚©B
 ‚Ü‚½A‹Z‚ÌM†‚ðŽó‚¯Žæ‚Á‚½ê‡•Ê‚Ì“®ì‚ÉˆÚs‚·‚é‚É‚Í‚Ç‚¤‚·‚é‚©B‰Û‘è‚ÍŽc‚éB
+
+2013/1/14
+	-"chara"ƒtƒHƒ‹ƒ_‚ð’Ç‰ÁBˆÈ~‚±‚ÌƒtƒHƒ‹ƒ_‚ÉƒLƒƒƒ‰ƒNƒ^[‚ÌƒNƒ‰ƒX‚ð“ü‚ê‚éB
+	-*_CollisionƒNƒ‰ƒX‚ðHit,Push,Attack‚ÆƒNƒ‰ƒX–¼‚ð•ÏXB‚±‚ê‚É”º‚¢Alua‘¤‚Åˆµ‚¤‚Æ‚«‚Ícollisionƒe[ƒuƒ‹‚Ì—Ìˆæ“à‚ÌƒNƒ‰ƒX‚Æ‚µ‚Äˆµ‚Á‚Ä‚¢‚é(Žg—pŽž‚Ícollision.Push()‚È‚Ç‚Æ‚µ‚ÄƒCƒ“ƒXƒ^ƒ“ƒX‰»‚·‚é)
+	-À•W(200,0)‚É“®‚©‚È‚¢–_lŠÔ‚ð•\Ž¦Bchara/chara.lua‚É‚ ‚é"Chara"ƒNƒ‰ƒX‚ð—p‚¢‚Ä”»’è‚ÆƒXƒvƒ‰ƒCƒg‚ð•\Ž¦‚µ‚Ä‚¢‚éB•\Ž¦‚Í	Œ»óAttack‚Ì‚Ý‚ÅAƒoƒCƒiƒŠƒtƒ@ƒCƒ‹"test"‚ð“Ç‚Ýž‚Þ‚±‚Æ‚ÅÀ•W‚È‚Ç‚ðŽæ“¾‚µ‚Ä‚¢‚éB
+	¡Œã‚Ì‰Û‘è
+		-ƒoƒCƒiƒŠƒtƒ@ƒCƒ‹‚ð’¼Ú‚¢‚¶‚é‚Ì‚Í–Ê“|‚È‚Ì‚ÅAGUIƒc[ƒ‹‚ðì¬‚·‚é•K—v‚ª‚ ‚éB
