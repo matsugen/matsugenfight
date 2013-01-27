@@ -24,6 +24,8 @@ public class Attack {
 		x1=x2=y1=y2=0;
 		g_vx=g_vy=a_vx=a_vy=0;
 		type=damage=point=time=0;
+		x1=255;
+		x2=1;
 	}
 	public void setRect(int a1,int a2,int b1,int b2){
 		x1=a1;
@@ -88,9 +90,45 @@ public class Attack {
 		return time;
 	}
 	public void Serializer(String file){
-		File f=new File("test");
+		File f=new File(file);
 		try {
 			FileOutputStream fw=new FileOutputStream(f);
+			BufferedOutputStream Buf=new BufferedOutputStream(fw);
+			Buf.write(ByteInt.tobyte(x1));
+//			System.out.printf("x1=%x\n",x1);
+			Buf.write(ByteInt.tobyte(x2));
+//			System.out.printf("x2=%x\n",x2);
+			Buf.write(ByteInt.tobyte(y1));
+//			System.out.printf("y1=%x\n",y1);
+			Buf.write(ByteInt.tobyte(y2));
+//			System.out.printf("y2=%x\n",y2);
+			Buf.write(ByteInt.tobyte(g_vx));
+//			System.out.printf("g_vx=%x\n",g_vx);
+			Buf.write(ByteInt.tobyte(g_vy));
+//			System.out.printf("g_vy=%x\n",g_vy);
+			Buf.write(ByteInt.tobyte(a_vx));
+//			System.out.printf("a_vy=%x\n",a_vy);
+			Buf.write(ByteInt.tobyte(a_vy));
+//			System.out.printf("a_vy=%x\n",a_vy);
+			Buf.write(ByteInt.tobyte(type));
+//			System.out.printf("type=%x\n",type);
+			Buf.write(ByteInt.tobyte(damage));
+//			System.out.printf("damage=%x\n",damage);
+			Buf.write(ByteInt.tobyte(point));
+//			System.out.printf("point=%x\n",point);
+			Buf.write(ByteInt.tobyte(time));
+//			System.out.printf("time=%x\n",time);
+			Buf.flush();
+			Buf.close();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+	}
+	public void Serializer(File file){
+		try {
+			FileOutputStream fw=new FileOutputStream(file);
 			BufferedOutputStream Buf=new BufferedOutputStream(fw);
 			Buf.write(ByteInt.tobyte(x1));
 //			System.out.printf("x1=%x\n",x1);
