@@ -74,7 +74,6 @@ public class Window1 extends JFrame {
 			//Push FileLoad
 			if(e.getSource()==jButton0){
 				//jFileChooserクラスを用いてファイルをロード
-				attack.Serializer("test");
 			}
 			//Push FileSave
 			if(e.getSource()==jButton1){

@@ -3,6 +3,7 @@
  */
 package sprite_window;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -161,5 +162,37 @@ public class Attack {
 			e.printStackTrace();
 		}
 
+	}
+	public void Load(BufferedInputStream Buf){
+		byte[] b=new byte[4];
+		try {
+			Buf.read(b,0,4);
+			x1=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			x2=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			y1=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			y2=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			g_vx=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			g_vy=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			a_vx=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			a_vy=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			type=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			damage=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			point=ByteInt.toint(b);
+			Buf.read(b,0,4);
+			time=ByteInt.toint(b);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 	}
 }
