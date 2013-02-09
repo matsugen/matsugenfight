@@ -59,21 +59,27 @@ public class Window1 extends JFrame {
 	private Attack attack;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 	public Window1() {
-		attack=new Attack();
-		attack.Serializer("test");
 		initComponents();
+		Baction=new ButtonAction();
+		jButton0.addActionListener(Baction);
+		jButton1.addActionListener(Baction);
+		jButton2.addActionListener(Baction);
+		jButton3.addActionListener(Baction);
+		jComboBox0.addActionListener(Baction);
 	}
 /*
  * Actionlistenerを設定する
  */
 	//Buttonのアクションリスナー
 	class ButtonAction implements ActionListener{
+		int combonum=-1;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO 自動生成されたメソッド・スタブ
 			//Push FileLoad
 			if(e.getSource()==jButton0){
 				//jFileChooserクラスを用いてファイルをロード
+				System.out.println("Load");
 			}
 			//Push FileSave
 			if(e.getSource()==jButton1){
@@ -87,17 +93,25 @@ public class Window1 extends JFrame {
 			if(e.getSource()==jButton3){
 				//Window2のデータで構造体を更新
 			}
+			//コンボボックスの選択\
+			if(combonum!=jComboBox0.getSelectedIndex()){
+				if(jComboBox0.getSelectedIndex()==-1){
+					System.out.println("None");
+				}else{
+					System.out.println((String)jComboBox0.getSelectedItem());
+					combonum=jComboBox0.getSelectedIndex();
+				}
+			}
 		}
 	};
-//
-	private void initComponents() {
+private void initComponents() {
+		setTitle("Main Window");
 		setLayout(new GroupLayout());
 		add(getJRadioButton0(), new Constraints(new Leading(599, 10, 10), new Trailing(12, 12, 12)));
 		add(getJRadioButton1(), new Constraints(new Leading(657, 12, 12), new Trailing(12, 12, 12)));
 		add(getJButton1(), new Constraints(new Leading(107, 10, 10), new Trailing(12, 54, 54)));
 		add(getJButton0(), new Constraints(new Leading(16, 10, 10), new Trailing(11, 54, 54)));
 		add(getJPanel0(), new Constraints(new Leading(3, 581, 12, 12), new Bilateral(2, 48, 0)));
-		add(getJComboBox0(), new Constraints(new Leading(602, 101, 12, 12), new Trailing(50, 62, 468)));
 		add(getJScrollPane0(), new Constraints(new Leading(599, 107, 12, 12), new Leading(28, 202, 10, 10)));
 		add(getJLabel1(), new Constraints(new Leading(586, 10, 10), new Leading(239, 24, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(590, 12, 12), new Leading(6, 87, 87)));
@@ -110,19 +124,12 @@ public class Window1 extends JFrame {
 		add(getJTextField0(), new Constraints(new Leading(421, 37, 12, 12), new Trailing(15, 54, 54)));
 		add(getJScrollPane1(), new Constraints(new Leading(598, 100, 12, 12), new Leading(265, 148, 10, 10)));
 		add(getJButton3(), new Constraints(new Leading(592, 12, 12), new Leading(425, 87, 87)));
+		add(getJComboBox0(), new Constraints(new Leading(602, 101, 12, 12), new Trailing(50, 62, 468)));
 		initBg();
-		//ButtonListenerの追加
-		Baction=new ButtonAction();
-		jButton0.addActionListener(Baction);
-		jButton1.addActionListener(Baction);
-		jButton2.addActionListener(Baction);
-		jButton3.addActionListener(Baction);
-		//ListListenerここまで
-		setTitle("Main Window");
 		setSize(720, 540);
 	}
 
-	private JButton getJButton3() {
+private JButton getJButton3() {
 		if (jButton3 == null) {
 			jButton3 = new JButton();
 			jButton3.setText("CollisionReload");
