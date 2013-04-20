@@ -1,0 +1,37 @@
+﻿2/24
+Luaのロード関連。
+キー入力
+
+	void WaitInputOnError(const char *mes, const char *postfix);
+
+	void ReloadLuaFiles(const char* arg = "") ;
+
+参考ファイル	main.cpp
+	reload.lua
+	actor.lua
+	
+	
+
+2/26
+OpenGL関連
+描画クラス
+
+	SpriteNodeをそのまま使うか？
+
+	Z軸でソートするから前後の判断はつけやすい？
+
+	SpriteNodeを理解し、使い方を把握してからそのまま使う。そのあと適宜改造。
+
+	DrawGLメソッドをどこで読んでるのか謎
+	
+	→main.cppのFrameDraw()で呼び出してた。Lua側では呼び出さない？(2/27)
+
+参考
+ファイル	SpriteNode.h
+	SpriteNode.cpp
+4/20放置していたため方針の見直し。SpriteNodeはとりあえずそのまま流用。
+	基本的には参考としている書籍のプログラムを流用する。概ね理解はしたが忘れている可能性を考慮して再度要熟読。
+	SpriteNodeは文字、無表示、画像に対応しているが矩形に対応していない。SpriteNodeの構造を理解した後、矩形に対応させる必要あり。
+	LuaのGameSceneなどの使い方がいまいちわからない。スクリプトの読みなおしとGameSceneに関わりのあるファイルを書きだす必要あり。
+	使用するライブラリの導入が容易であることからUbuntuでコンパイルすることが多くなってきた。クロスコンパイル環境の構築を学ぶことは諦め、luabindやluaのCライブラリの入手が容易なVCでコンパイルすることとする。共有にはUbuntu Oneを利用する。適宜Githubにもコミットする。
+参考ファイル	GameScene.lua etc...

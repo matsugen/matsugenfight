@@ -1,0 +1,174 @@
+
+$hfile"Resorce.h"
+$hfile"main.h"
+$#include"SpriteNode.h"
+
+enum {
+	SDLK_UNKNOWN = 0,
+	SDLK_TAB = 9,
+	SDLK_RETURN = 13,
+	SDLK_ESCAPE = 27,
+	SDLK_SPACE = 32,
+	SDLK_0 = 48,
+	SDLK_1 = 49,
+	SDLK_2 = 50,
+	SDLK_3 = 51,
+	SDLK_4 = 52,
+	SDLK_5 = 53,
+	SDLK_6 = 54,
+	SDLK_7 = 55,
+	SDLK_8 = 56,
+	SDLK_9 = 57,
+	SDLK_DELETE = 127,
+
+	// keypad
+	SDLK_KP0 = 256,
+	SDLK_KP1 = 257
+	SDLK_KP2 = 258,
+	SDLK_KP3 = 259,
+	SDLK_KP4 = 260,
+	SDLK_KP5 = 261,
+	SDLK_KP6 = 262,
+	SDLK_KP7 = 263,
+	SDLK_KP8 = 264,
+	SDLK_KP9 = 265,
+	SDLK_KP_PERIOD = 266,
+	SDLK_KP_DIVIDE = 267,
+	SDLK_KP_MULTIPLY = 268,
+	SDLK_KP_MINUS = 269,
+	SDLK_KP_PLUS = 270,
+	SDLK_KP_ENTER = 271,
+	SDLK_KP_EQUALS = 272,
+	
+	// arrows
+	SDLK_UP = 273,
+	SDLK_DOWN = 274,
+	SDLK_RIGHT = 275,
+	SDLK_LEFT = 276,
+	SDLK_INSERT = 277,
+	SDLK_HOME = 278,
+	SDLK_END = 279,
+	SDLK_PAGEUP = 280,
+	SDLK_PAGEDOWN = 281,
+	
+	// function keys
+	SDLK_F1 = 282,
+	SDLK_F2 = 283,
+	SDLK_F3 = 284,
+	SDLK_F4 = 285,
+	SDLK_F5 = 286,
+	SDLK_F6 = 287,
+	SDLK_F7 = 288,
+	SDLK_F8 = 289,
+	SDLK_F9 = 290,
+	SDLK_F10 = 291,
+	SDLK_F11 = 292,
+	SDLK_F12 = 293,
+	SDLK_F13 = 294,
+	SDLK_F14 = 295,
+	SDLK_F15 = 296,
+	
+	SDLK_NUMLOCK = 300,
+	SDLK_CAPSLOCK = 301,
+	SDLK_RSHIFT = 303,
+	SDLK_LSHIFT = 304,
+	SDLK_RCTRL = 305,
+	SDLK_LCTRL = 306,
+	SDLK_RALT = 307,
+	SDLK_LALT = 308,
+	
+	KMOD_NONE = 0x0000,
+	KMOD_LSHIFT = 0x0001,
+	KMOD_RSHIFT = 0x0002,
+	KMOD_LCTRL = 0x0040,
+	KMOD_RCTRL = 0x0080,
+	KMOD_LALT = 0x0100,
+	KMOD_RALT = 0x0200,
+	KMOD_CAPS = 0x2000,
+	
+	KMOD_CTRL = 0x00C0,
+	KMOD_SHIFT = 0x0003,
+	KMOD_ALT = 0x0300,
+	
+};
+
+	// ロードした画像を管理するクラス
+	class ImageLoader {
+	public:
+		ImageLoader();
+		~ImageLoader();
+		void Destroy();
+		bool AddSurface(const char *name, SDL_Surface *surface, int xgridspan = 0, int ygridspan = 0, int xgridcount = 0 );
+		bool AddSurfaceByFileName(const char *name, const char *filename, int xgridspan = 0, int ygridspan = 0, int xgridcount = 0 );
+		ImageLoaderItem *GetItemByName(const char *name);
+	};
+
+	// スプライトノードクラス
+	class SpriteNode {
+	public:
+
+		enum ENUM_OP_TYPE {
+			OP_NORMAL,		// 通常モード（テクスチャが透明度に応じて重ねあわされる）
+			OP_ADD,			// 加算モード（テクスチャを重ねるほど白くなるモード。光の表現など）
+		};
+
+	public:
+		SpriteNode();
+		virtual ~SpriteNode();
+		void Destroy();
+
+		void SetImageLoader(ImageLoader *loader);
+		const char *GetImageName() const;
+		SpriteNode *GetParent() const;
+		void Show(bool show);
+		void SetOpType(SpriteNode::ENUM_OP_TYPE op_type);
+		void MoveTo(int x, int y);
+		void Offset(int x, int y);
+		int GetX() const ;
+		void SetX(int x);
+		int GetY() const;
+		void SetY(int y);
+		int GetZ() const;
+		void SetZ(int z);
+		void SetCenter(int x, int y);
+		void SetScale(float x, float y);
+		void SetColor(float r, float g, float b, float a = 1.0);
+		void SetAlpha(float alpha);
+
+		void TranslateParentToThis(float *x, float *y, bool use_this_scale = true);
+		void TranslateThisToParent(float *x, float *y, bool use_this_scale = true);
+		void TranslateRootToThis(float *x, float *y, bool use_this_scale = true);
+		void TranslateThisToRoot(float *x, float *y, bool use_this_scale = true);
+
+		void SetChipGrid(int xspan, int yspan, int xcount);
+		void SetChipIndex(int index);
+		void SetChipSpan(int x_chipspan, int y_chipspan);
+		
+		GLuint GetTexture();
+		void SetImageName(const char *name, ImageLoader *loader);
+		bool FetchImage() ;
+
+		void DrawGL(DrawSystem *ds, float xbase, float ybase, float xbasescale, float ybasescale, int level);
+
+		// 子ノード関連
+		int GetChildCount() const;
+		SpriteNode *GetChildAt(int index);
+		bool AddChild(SpriteNode *chr);
+		bool RemoveChild(SpriteNode *chr);
+		bool RemoveFromParent();
+	
+		// テキスト関連
+		void SetFont(const char* fontname);
+		void SetText(const char *text);
+		void SetTextColor( unsigned int r, unsigned int g, unsigned int b);
+	};
+
+	class DrawSystem 
+	{
+	public:
+		DrawSystem();
+		~DrawSystem();
+		bool AddNode(SpriteNode *chr);
+		bool RemoveNode(SpriteNode *chr);
+		void DrawGL();
+	};

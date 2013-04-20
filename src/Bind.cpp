@@ -1,0 +1,225 @@
+/*
+ * Bind.cpp
+ *
+ *  Created on: 2013/02/18
+ *      Author: matsukuwa
+ */
+
+#include"Bind.h"
+#include"SDL_tolua.h"
+#include"SpriteNode.h"
+#include<lua.hpp>
+#include<luabind/luabind.hpp>
+#include<luabind/lua_include.hpp>
+int Bind(lua_State *L){
+	using namespace ::luabind;
+	open(L);
+	module(L)
+	[
+	 //Spriteクラスのバインド。多分もう使わない。
+	 class_<Sprite>("Sprite")
+		 .def(constructor<>())
+		 .def(constructor<const char*,const char*> ())//文字サーフェス
+		 .def(constructor<const char*>())//画像サーフェス
+		 .def(constructor<int,int,int,int>())//矩形サーフェス
+		 .def("Change_Text",(int(Sprite::*)(const char*))&Sprite::Change_Text)
+		 .def("Change_Font",(int(Sprite::*)(const char*,int))&Sprite::Change_Font)
+		 .def("SetBlit",(int(Sprite::*)())&Sprite::SetBlit)
+		 .def("Change_Color",(int(Sprite::*)(int,int,int))&Sprite::Change_Color)
+		 .def("Change_Pos",(int(Sprite::*)(int,int))&Sprite::Change_Pos)
+		 .def("Change_Alpha",(int(Sprite::*)(float))&Sprite::Change_Alpha)
+		 .def("Reverse_X",(int(Sprite::*)())&Sprite::Reverse_X)
+		 .def("Reverse_Y",(int(Sprite::*)())&Sprite::Reverse_Y)
+		 .def("Get_H",(int(Sprite::*)())&Sprite::Get_H)
+		 .def("Get_W",(int(Sprite::*)())&Sprite::Get_W),
+	//ImageLoaderクラスのバインド
+	class_<ImageLoader>("ImageLoader")
+		.def(constructor<>())
+		.def("Destroy",&ImageLoader::Destroy)
+		.def("AddSurface",&ImageLoader::AddSurface)
+		.def("AddSurfacebyFileName",&ImageLoader::AddSurfaceByFileName)
+		.def("GetItemByName",&ImageLoader::GetItemByName),
+	//SpriteNodeクラスのバインド
+	class_<SpriteNode>("SpriteNode")
+		.enum_("constants")
+			[
+			 value("OP_NORMAL",SpriteNode::OP_NORMAL),
+			 value("OP_ADD",SpriteNode::OP_ADD)
+			 ]
+		.def(constructor<>())
+		.def("Destroy",&SpriteNode::Destroy)
+		.def("SetImageLoader",&SpriteNode::SetImageLoader)
+		.def("GetParent",&SpriteNode::GetParent)
+		.def("GetImageName",&SpriteNode::GetImageName)
+		.def("Show",&SpriteNode::Show)
+		.def("SetOpType",&SpriteNode::SetOpType)
+		.def("MoveTo",&SpriteNode::MoveTo)
+		.def("Offset",&SpriteNode::Offset)
+		.def("GetX",&SpriteNode::GetX)
+		.def("SetX",&SpriteNode::SetX)
+		.def("GetY",&SpriteNode::GetY)
+		.def("SetY",&SpriteNode::SetY)
+		.def("GetZ",&SpriteNode::GetZ)
+		.def("SetZ",&SpriteNode::SetZ)
+		.def("SetCenter",&SpriteNode::SetCenter)
+		.def("SetScale",&SpriteNode::SetScale)
+		.def("SetColor",&SpriteNode::SetColor)
+		.def("SetAlpha",&SpriteNode::SetAlpha)
+		.def("TranslateParentToThis",&SpriteNode::TranslateParentToThis)
+		.def("TranslateThisToParent",&SpriteNode::TranslateThisToParent)
+		.def("TranslateRootToThis",&SpriteNode::TranslateRootToThis)
+		.def("TranslateThisToRoot",&SpriteNode::TranslateThisToRoot)
+		.def("SetChipGrid",&SpriteNode::SetChipGrid)
+		.def("SetChipIndex",&SpriteNode::SetChipIndex)
+		.def("SetChipSpan",&SpriteNode::SetChipSpan)
+		.def("GetTexture",&SpriteNode::GetTexture)
+		.def("SetImageName",&SpriteNode::SetImageName)
+		.def("FetchImage",&SpriteNode::FetchImage)
+		.def("DrawGL",&SpriteNode::DrawGL)
+		//子ノード関連
+		.def("GetChildCount",&SpriteNode::GetChildCount)
+		.def("GetChildAt",&SpriteNode::GetChildAt)
+		.def("AddChild",&SpriteNode::AddChild)
+		.def("RemoveChild",&SpriteNode::RemoveChild)
+		.def("RemoveFromParent",&SpriteNode::RemoveFromParent)
+		//テキスト関連
+		.def("SetFont",&SpriteNode::SetFont)
+		.def("SetText",&SpriteNode::SetText)
+		.def("SetTextColor",&SpriteNode::SetTextColor),
+	//DrawSystemクラスのバインド
+	class_<DrawSystem>("DrawSystem")
+		.def(constructor<>())
+		.def("AddNode",&DrawSystem::AddNode)
+		.def("RemoveNode",&DrawSystem::RemoveNode)
+		.def("DrawGL",&DrawSystem::DrawGL),//←これがいるのか不明
+	 def("LBIT",&LBIT),
+	 def("RBIT",&RBIT),
+	 def("ReloadLuaFiles",&ReloadLuaFiles),
+	 def("DoLuaFile",&DoLuaFile),
+	 def("WaitInputOnError",&WaitInputOnError),
+	 def("GetLuaError",&GetLuaError),
+	 def("Delay",&Delay),
+	 def("GetState",&GetState),
+	 def("GetDrawSystem",&GetDrawSystem),
+	 def("GetImageLoader",&GetImageLoader),
+	 //キー状態取得用列挙型
+	 //Key.*という方法で使う。
+	 class_<Key>("Key")
+     .enum_("constants")
+     [
+  	value("UNKNOWN",0),
+  	value("TAB",9),
+  	value("RETURN",13),
+  	value("ESCAPE",27),
+  	value("SPACE",32),
+  	value("ZERO",48),
+  	value("ONE",49),
+  	value("TWO",50),
+  	value("THREE",51),
+  	value("FOUR",52),
+  	value("FIVE",53),
+  	value("SIX",54),
+  	value("SEVEN",55),
+  	value("EIGHT",56),
+  	value("NINE",57),
+  	value("DELETE",127),
+
+  	// keypad
+  	value("KP0",256),
+  	value("KP1",257),
+  	value("KP2",258),
+  	value("KP3",259),
+  	value("KP4",260),
+  	value("KP5",261),
+  	value("KP6",262),
+  	value("KP7",263),
+  	value("KP8",264),
+  	value("KP9",265),
+  	value("KP_PERIOD",266),
+  	value("KP_DIVIDE",267),
+  	value("KP_MULTIPLY",268),
+  	value("KP_MINUS",269),
+  	value("KP_PLUS",270),
+  	value("KP_ENTER",271),
+  	value("KP_EQUALS",272),
+
+  	// arrows
+  	value("UP",273),
+  	value("DOWN",274),
+  	value("RIGHT",275),
+  	value("LEFT",276),
+  	value("INSERT",277),
+  	value("HOME",278),
+  	value("END",279),
+  	value("PAGEUP",280),
+  	value("PAGEDOWN",281),
+
+  	// function keys
+  	value("F1",282),
+  	value("F2",283),
+  	value("F3",284),
+  	value("F4",285),
+  	value("F5",286),
+  	value("F6",287),
+  	value("F7",288),
+  	value("F8",289),
+  	value("F9",290),
+  	value("F10",291),
+  	value("F11",292),
+  	value("F12",293),
+  	value("F13",294),
+  	value("F14",295),
+  	value("F15",296),
+
+  	value("NUMLOCK",300),
+  	value("CAPSLOCK",301),
+  	value("RSHIFT",303),
+  	value("LSHIFT",304),
+  	value("RCTRL",305),
+  	value("LCTRL",306),
+  	value("RALT",307),
+  	value("LALT",308),
+
+  	value("MOD_NONE",0x0000),
+  	value("MOD_LSHIFT",0x0001),
+  	value("MOD_RSHIFT",0x0002),
+  	value("MOD_LCTRL",0x0040),
+  	value("MOD_RCTRL",0x0080),
+  	value("MOD_LALT",0x0100),
+  	value("MOD_RALT",0x0200),
+  	value("MOD_CAPS",0x2000),
+
+  	value("MOD_CTRL",0x00C0),
+  	value("MOD_SHIFT",0x0003),
+  	value("MOD_ALT",0x0300),
+
+  	value("A",SDLK_a),
+  	value("B",SDLK_b),
+  	value("C",SDLK_c),
+  	value("D",SDLK_d),
+  	value("E",SDLK_e),
+  	value("F",SDLK_f),
+  	value("G",SDLK_g),
+  	value("H",SDLK_h),
+  	value("I",SDLK_i),
+  	value("J",SDLK_j),
+  	value("K",SDLK_k),
+  	value("L",SDLK_l),
+  	value("M",SDLK_m),
+  	value("N",SDLK_n),
+  	value("O",SDLK_o),
+  	value("P",SDLK_p),
+  	value("Q",SDLK_q),
+  	value("R",SDLK_r),
+  	value("S",SDLK_s),
+  	value("T",SDLK_t),
+  	value("U",SDLK_u),
+  	value("V",SDLK_v),
+  	value("W",SDLK_w),
+  	value("X",SDLK_x),
+  	value("Y",SDLK_y),
+  	value("Z",SDLK_z)
+      ]
+	 ];
+	return 0;
+}

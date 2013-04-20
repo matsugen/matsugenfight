@@ -1,0 +1,35 @@
+$#include"../Ctolua.h"
+$#include"../collision.h"
+#define DIRECTION_LEFT 0
+#define DIRECTION_RIGHT 1
+module Dx{
+	extern int LoadImagefile(char *file);
+	extern void String(int r,int g,int b,int x,int y,char *text);
+	extern int LoadDivImage(int hundle,int start_x,int start_y,int end_x,int end_y);
+	extern int DrawImage(int x=0,int y=0,int hundle=-1,int direction=DIRECTION_LEFT,int Flg=1);
+	extern bool GetSize(int hundle,int *x,int *y);
+	extern int InitImage();
+	extern int DrawCollision(int r,int g,int b,int x1,int x2,int y1,int y2);
+	extern int FileOpen(char *filename);
+	extern int FileRead(int file);
+	extern int FileClose(int file);
+}
+
+extern int XOR(int x,int y);
+extern int OR(int x,int y);
+extern int AND(int x,int y);
+extern int NOT(int x);
+extern int LSHIFT(int x,int number);
+extern int RSHIFT(int x,int number);
+
+class Key{
+	Key();
+	~Key();
+	int KeyState();
+	int GetPush();
+	int GetDown();
+	int GetUp();
+}
+module collision{
+	$hfile"../collision.h"
+}
